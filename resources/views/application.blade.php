@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="{{ asset('favicon.ico') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prima Network Solution | Internet Service Provider</title>
+    <title>Dhaha Prima Network Solution | Internet Service Provider</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('loader.css') }}" />
     @vite(['resources/js/main.js'])
 </head>
