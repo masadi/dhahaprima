@@ -13,11 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@dhahaprima.id',
-            'password' => bcrypt(12345678),
-        ]);
+        User::updateOrCreate(
+            [
+                'name' => 'Administrator',
+                'email' => 'admin@dhahaprima.id',
+            ],
+            [
+                'password' => bcrypt(12345678),
+            ]
+        );
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
