@@ -27,6 +27,30 @@ export const redirects = [
       return { name: 'login', query: to.query }
     },*/
   },
+  /*{
+    path: '/profiles',
+    name: 'profiles',
+    component: () => import('@/pages/blank.vue'),
+    meta: { 
+      public: true
+    },
+  },
+  {
+    path: '/products',
+    name: 'products',
+    component: () => import('@/pages/blank.vue'),
+    meta: { 
+      public: true
+    },
+  },
+  {
+    path: '/contact-us',
+    name: 'contact-us',
+    component: () => import('@/pages/blank.vue'),
+    meta: { 
+      public: true
+    },
+  },*/
   {
     path: '/pages/user-profile',
     name: 'pages-user-profile',

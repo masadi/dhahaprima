@@ -21,7 +21,7 @@ watch(() => display, () => {
 const isMenuOpen = ref(false)
 const isMegaMenuOpen = ref(false)
 
-const menuItems = [
+const menuItemsDeleted = [
   {
     listTitle: 'Page',
     listIcon: 'tabler-layout-grid',
@@ -130,7 +130,25 @@ const isCurrentRoute = to => {
 // return route.matched.some(_route => _route.path === router.resolve(to).path)
 }
 const userData = useCookie('userData')
-const isPageActive = computed(() => menuItems.some(item => item.navItems.some(listItem => isCurrentRoute(listItem.to))))
+//const isPageActive = computed(() => menuItems.some(item => item.navItems.some(listItem => isCurrentRoute(listItem.to))))
+const menuItems = ref([
+  {
+    name: 'Home',
+    to: 'index',
+  },
+  {
+    name: 'Profiles', 
+    to: 'profiles',
+  },
+  {
+    name: 'Products', 
+    to: 'products',
+  },
+  {
+    name: 'Contact Us', 
+    to: 'contact-us',
+  },
+])
 </script>
 
 <template>
@@ -143,16 +161,17 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
     <!-- Nav items -->
     <div>
       <div class="d-flex flex-column gap-y-4 pa-4">
+        <!--:to="{ name: 'front-pages-landing-page', hash: #${item.toLowerCase().replace(' ', '-')} }"-->
+        <!--:class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : '']"-->
         <RouterLink
-          v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']"
+          v-for="(item, index) in menuItems"
           :key="index"
-          :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
+          :to="{ name: item.to }"
           class="nav-link font-weight-medium"
-          :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : '']"
         >
           {{ item }}
         </RouterLink>
-
+        <!--
         <div class="font-weight-medium cursor-pointer">
           <div
             :class="[isMenuOpen ? 'mb-6 active-link' : '', isPageActive ? 'active-link' : '']"
@@ -207,14 +226,7 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
             </div>
           </div>
         </div>
-
-        <RouterLink
-          to="/"
-          target="_blank"
-          class="font-weight-medium nav-link"
-        >
-          Admin disini
-        </RouterLink>
+        -->
       </div>
     </div>
 
@@ -230,33 +242,18 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
   <!-- 👉 Navbar for desktop devices  -->
   <div class="front-page-navbar">
     <div class="front-page-navbar">
-      <VAppBar
-        :color="$vuetify.theme.current.dark ? 'rgba(var(--v-theme-surface),0.38)' : 'rgba(var(--v-theme-surface), 0.38)'"
-        :class="y > 10 ? 'app-bar-scrolled' : [$vuetify.theme.current.dark ? 'app-bar-dark' : 'app-bar-light', 'elevation-0']"
-        class="navbar-blur"
-      >
+      <VAppBar :color="$vuetify.theme.current.dark ? 'rgba(var(--v-theme-surface),0.38)' : 'rgba(var(--v-theme-surface), 0.38)'" :class="y > 10 ? 'app-bar-scrolled' : [$vuetify.theme.current.dark ? 'app-bar-dark' : 'app-bar-light', 'elevation-0']" class="navbar-blur">
         <!-- toggle icon for mobile device -->
-        <IconBtn
-          id="vertical-nav-toggle-btn"
-          class="ms-n3 me-2 d-inline-block d-md-none"
-          @click="sidebar = !sidebar"
-        >
-          <VIcon
-            size="26"
-            icon="tabler-menu-2"
-            color="rgba(var(--v-theme-on-surface))"
-          />
+        <IconBtn id="vertical-nav-toggle-btn" class="ms-n3 me-2 d-inline-block d-md-none" @click="sidebar = !sidebar">
+          <VIcon size="26" icon="tabler-menu-2" color="rgba(var(--v-theme-on-surface))" />
         </IconBtn>
         <!-- Title and Landing page sections -->
         <div class="d-flex align-center">
           <VAppBarTitle class="me-6">
-            <RouterLink
-              to="/"
-              class="d-flex gap-x-4"
-              :class="$vuetify.display.mdAndUp ? 'd-none' : 'd-block'"
-            >
+            <RouterLink to="/" class="d-flex gap-x-4" :class="$vuetify.display.mdAndUp ? 'd-none' : 'd-block'">
               <div class="app-logo">
                 <VNodeRenderer :nodes="themeConfig.app.logo" />
+                <!--VImg :src="themeConfig.app.logo"></VImg-->
                 <h1 class="app-logo-title">
                   {{ themeConfig.app.title }}
                 </h1>
@@ -266,39 +263,18 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
 
           <!-- landing page sections -->
           <div class="text-base align-center d-none d-md-flex">
-            <RouterLink
-              v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']"
-              :key="index"
-              :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }"
-              class="nav-link font-weight-medium py-2 px-2 px-lg-4"
-              :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : '']"
-            >
+            <!--RouterLink v-for="(item, index) in ['Home', 'Features', 'Team', 'FAQ', 'Contact us']" :key="index" :to="{ name: 'front-pages-landing-page', hash: `#${item.toLowerCase().replace(' ', '-')}` }" class="nav-link font-weight-medium py-2 px-2 px-lg-4" :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.toLocaleLowerCase() ? 'active-link' : '']">
               {{ item }}
+            </RouterLink-->
+            <RouterLink v-for="(item, index) in menuItems" :key="index" :to="{ name: item.to }" class="nav-link font-weight-medium py-2 px-2 px-lg-4" :class="[props.activeId?.toLocaleLowerCase().replace('-', ' ') === item.name.toLocaleLowerCase() ? 'active-link' : '']">
+              {{ item.name }}
             </RouterLink>
 
-            <!-- Pages Menu -->
-            <span
-              class="font-weight-medium cursor-pointer px-2 px-lg-4 py-2"
-              :class="isPageActive || isMegaMenuOpen ? 'active-link' : ''"
-              style="color: rgba(var(--v-theme-on-surface));"
-            >
+            <!-- Pages Menu 
+            <span class="font-weight-medium cursor-pointer px-2 px-lg-4 py-2" :class="isPageActive || isMegaMenuOpen ? 'active-link'  : ''" style="color: rgba(var(--v-theme-on-surface));">
               Pages
-              <VIcon
-                icon="tabler-chevron-down"
-                size="16"
-                class="ms-2"
-              />
-              <VMenu
-                v-model="isMegaMenuOpen"
-                open-on-hover
-                activator="parent"
-                transition="slide-y-transition"
-                location="bottom center"
-                offset="16"
-                content-class="mega-menu"
-                location-strategy="static"
-                close-on-content-click
-              >
+              <VIcon icon="tabler-chevron-down" size="16" class="ms-2" />
+              <VMenu v-model="isMegaMenuOpen" open-on-hover activator="parent" transition="slide-y-transition" location="bottom center" offset="16" content-class="mega-menu" location-strategy="static" close-on-content-click>
                 <VCard max-width="1000">
                   <VCardText class="pa-8">
                     <div class="nav-menu">
@@ -356,6 +332,7 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
                 </VCard>
               </VMenu>
             </span>
+            -->
           </div>
         </div>
 
@@ -363,26 +340,13 @@ const isPageActive = computed(() => menuItems.some(item => item.navItems.some(li
 
         <div class="d-flex gap-x-4">
           <NavbarThemeSwitcher />
-
-          <VBtn
-            v-if="$vuetify.display.lgAndUp"
-            :prepend-icon="userData ? 'tabler-dashboard' : 'tabler-lock-open'"
-            variant="elevated"
-            color="primary"
-            :href="userData ? '/dashboard' : '/login'"
-          >
+          <VBtn v-if="$vuetify.display.lgAndUp" :prepend-icon="userData ? 'tabler-dashboard' : 'tabler-lock-open'" variant="elevated"
+            color="primary" :href="userData ? '/dashboard' : '/login'">
           <template v-if="userData">Dashboard</template>
           <template v-else>Login</template>
           </VBtn>
 
-          <VBtn
-            v-else
-            rounded
-            icon
-            variant="elevated"
-            color="primary"
-            :href="userData ? '/dashboard' : '/login'"
-          >
+          <VBtn v-else rounded icon variant="elevated" color="primary" :href="userData ? '/dashboard' : '/login'">
             <VIcon :icon="userData ? 'tabler-dashboard' : 'tabler-lock-open'" />
           </VBtn>
         </div>

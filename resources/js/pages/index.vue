@@ -12,7 +12,7 @@ import PricingPlans from '@/views/front-pages/landing-page/pricing-plans.vue'
 import ProductStats from '@/views/front-pages/landing-page/product-stats.vue'
 
 definePage({ meta: { 
-  layout: 'blank'
+  layout: 'blank',
 } })
 
 const activeSectionId = ref()
@@ -30,6 +30,7 @@ useIntersectionObserver([
   refFaq,
 ], ([{ isIntersecting, target }]) => {
   if (isIntersecting)
+    console.log(target);
     activeSectionId.value = target.id
 }, { threshold: 0.25 })
 </script>
