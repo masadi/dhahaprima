@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Page;
@@ -24,7 +25,7 @@ class PageSeeder extends Seeder
         ]);
         $user = User::updateOrCreate(
             [
-                'email' => 'admin@email.com'
+                'email' => 'admin@dhahaprima.id'
             ],
             [
                 'name' => 'Administrator',
@@ -34,15 +35,29 @@ class PageSeeder extends Seeder
         if(!$user->hasRole('admin')){
             $user->addRole($role);
         }
-        $find = Page::first();
-        if(!$find){
-            Page::create([
+        $pages = [
+            [
                 'title' => 'Home',
                 'content' => 'Home Content',
-            ]);
+            ],
+            [
+                'title' => 'Profile',
+                'content' => 'Profile Content',
+            ],
+            [
+                'title' => 'Products',
+                'content' => 'Products Content',
+            ],
+            [
+                'title' => 'Contact Us',
+                'content' => 'Contact Us Content',
+            ],
+        ];
+        DB::table('pages')->truncate();
+        foreach($pages as $page){
             Page::create([
-                'title' => 'About',
-                'content' => 'About Content',
+                'title' => $page['title'],
+                'content' => $page['content'],
             ]);
         }
     }

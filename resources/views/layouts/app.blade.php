@@ -126,7 +126,7 @@
 
         <div class="container footer-bottom clearfix">
             <div class="copyright">
-                &copy; <a href="{{url('/')}}" class="text-white"><strong><span>PT Link Data Sumber Barokah&trade; </span></strong></a>
+                &copy; <a href="{{url('/')}}" class="text-white"><strong><span>PT Dhaha Prima Network&trade; </span></strong></a>
             </div>
             <div class="credits">
                 Ellak Daya Lenteng Sumenep
