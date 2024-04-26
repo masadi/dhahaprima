@@ -129,7 +129,7 @@
                 &copy; <a href="{{url('/')}}" class="text-white"><strong><span>PT Dhaha Prima Network&trade; </span></strong></a>
             </div>
             <div class="credits">
-                Ellak Daya Lenteng Sumenep
+                Dusun Adan-adan RT 6 RW 5 Desa Adan-adan Kec. Gurah Kab. Kediri
             </div>
         </div>
     </footer><!-- End Footer -->
