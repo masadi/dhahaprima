@@ -86,7 +86,8 @@ export default {
     },
     toHome() {
       console.log('logout:', app_url);
-      window.location.assign(app_url)
+      //window.location.assign(app_url)
+      window.location.replace(app_url)
     },
   },
 }
